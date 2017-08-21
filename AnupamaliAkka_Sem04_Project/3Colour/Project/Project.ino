@@ -1,9 +1,9 @@
 /* MATLAB CODE
 
-			threeColours=[[1019,667,976];
-			            [1020,655,960];
-			            [1022,711,994];
-			            ]
+			threeColours=[[1017,590,983];
+            [1019,595,979];
+            [1018,523,959];
+            ]
 			RGBmeans=mean(threeColours)
 			RGBsdtDev=sqrt(var(threeColours))
 
@@ -32,42 +32,42 @@
 
 
 MATLAB RESULT
-		threeColours =
+threeColours =
 
-		        1019         667         976
-		        1020         655         960
-		        1022         711         994
-
-
-		RGBmeans =
-
-		   1.0e+03 *
-
-		    1.0203    0.6777    0.9767
+        1017         590         983
+        1019         595         979
+        1018         523         959
 
 
-		RGBsdtDev =
+RGBmeans =
 
-		    1.5275   29.4845   17.0098
+   1.0e+03 *
 
-
-		normalizedThreeColours =
-
-		   -0.8729   -0.3618   -0.0392
-		   -0.2182   -0.7688   -0.9798
-		    1.0911    1.1305    1.0190
+    1.0180    0.5693    0.9737
 
 
-		eigenVec =
+RGBsdtDev =
 
-		    0.5469
-		    0.6103
-		    0.5731
+    1.0000   40.2036   12.8582
 
 
-		projectedM =
+normalizedThreeColours =
 
-		   -0.7206   -1.1501    1.8707
+   -1.0000    0.5140    0.7259
+    1.0000    0.6384    0.4148
+         0   -1.1525   -1.1406
+
+
+eigenVec =
+
+   -0.0680
+    0.7017
+    0.7092
+
+
+projectedM =
+
+    0.9435    0.6741   -1.6177
 
 */
 
@@ -128,16 +128,16 @@ processOneBox();
 // void loop() {
   // processOneBox();
  //}
- 
+              
  float normalizeR(int R){
-   return ((float)R - 1.0203*1000) / 1.5275;
+   return ((float)R -  1.0180*1000) / 1.0000;
  }
  
  float normalizeG(int G){
-   return ((float)G - 0.6777*1000) / 29.4845;
+   return ((float)G - 0.5693*1000) / 40.2036;
  }
  float normalizeB(int B){
-   return ((float)B - 0.9767*1000) / 17.0098;
+   return ((float)B - 0.9737*1000) / 12.8582;
  }
  
  
@@ -203,13 +203,21 @@ processOneBox();
    else return 6;
  }
  
+
+
+   
+    
+
+
+           
+
  int whatColor_PCA(float R,float G,float B){
          
-   float eigenVectorR=0.5469; //This value should be tuned
-   float eigenVectorG=0.6103; //This value should be tuned
-   float eigenVectorB=0.5731; //This value should be tuned
+   float eigenVectorR=-0.0680; //This value should be tuned
+   float eigenVectorG=0.7017; //This value should be tuned
+   float eigenVectorB=0.7092; //This value should be tuned
    
-   float PCA_ar[3]={-0.7206 ,  -1.1501 ,   1.8707}; //These values should be tuned
+   float PCA_ar[3]={0.9435 ,  0.6741 ,   -1.6177}; //These values should be tuned
    float projection=R*eigenVectorR + G*eigenVectorG + B*eigenVectorB;
  
    int color=0;
@@ -219,8 +227,11 @@ processOneBox();
  }
  
  int whatColor_NearestNeighbour(float R,float G,float B){
- 
-   float colorsRGB[6][3]={{-0.8729 , -0.3618 ,  -0.0392},{ -0.2182  , -0.7688  , -0.9798},{1.0911  ,  1.1305 ,   1.0190}};
+/*   
+    
+         
+*/ 
+   float colorsRGB[6][3]={{-1.0000,0.5140,0.7259},{ 1.0000, 0.6384, 0.4148},{0,-1.1525,-1.1406}};
    int color=0;
    double minDistance=pow(colorsRGB[0][0]-R,2)+pow(colorsRGB[0][1]-G,2)+pow(colorsRGB[0][2]-B,2);
    for(int i=1;i<3;i++){
@@ -233,8 +244,8 @@ processOneBox();
  }
  
  int whatColor_DecisionTree(float R,float G,float B){
-   if(G>0) return 2;
-   else if(G>R) return 0;
+   if(B<0) return 2;
+   else if(B>G) return 0;
    else return 1;
  }
 

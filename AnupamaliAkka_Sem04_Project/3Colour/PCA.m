@@ -1,6 +1,6 @@
-threeColours=[[1019,667,976];
-            [1020,655,960];
-            [1022,711,994];
+threeColours=[[1017,590,983];
+            [1019,595,979];
+            [1018,523,959];
             ]
 RGBmeans=mean(threeColours)
 RGBsdtDev=sqrt(var(threeColours))
