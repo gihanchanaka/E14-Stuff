@@ -132,17 +132,21 @@ delay(5000);
    int colorPCA=whatColor_PCA(R,G,B);
    
    Serial.print("Nearest Neighbour=");
-   Serial.println(colorNearestNeighbour);
+   Serial.println(colorToString(colorNearestNeighbour));
    Serial.print(" DecisionTree=");
-   Serial.print(colorDecisionTree);
+   Serial.print(colorToString(colorDecisionTree));
    Serial.print(" PCA Algo=");
-   Serial.println(colorPCA);
+   Serial.println(colorToString(colorPCA));
    
    return colorDecisionTree; //********************
  }
  
 
-
+String colorToString(int C){
+  if(C==0) return "Red";
+  else if(C==1) return "Green";
+  else return "Blue"; 
+}
    
     
 
