@@ -1,6 +1,6 @@
-threeColours=[[1015,600,972];
-            [1018,592,970];
-            [1018,687,957];
+threeColours=[[1015,600,940];
+            [1019,595,979];
+            [1018,523,959];
             ]
 RGBmeans=mean(threeColours)
 RGBsdtDev=sqrt(var(threeColours))
@@ -14,18 +14,16 @@ for i=1:3
 end
 normalizedThreeColours
 
-threeColours=threeColours-RGBmeans
-corelationM=(threeColours' * threeColours);
+corelationM=(normalizedThreeColours' * normalizedThreeColours);
 
 [V,D]=eig(corelationM);
 
 eigenVec=V(:,3)
 
 unitV=eigenVec/abs(eigenVec);
-threeColours=threeColours+RGBmeans
 
 for x=1:3
-    projectedM(x)=(threeColours(x,:) * eigenVec);
+    projectedM(x)=(normalizedThreeColours(x,:) * eigenVec);
 end
 
 projectedM
