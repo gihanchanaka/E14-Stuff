@@ -72,9 +72,10 @@ processOneBox();
    float G=normalizeG(analogRead(1)); //Green LDR reading pin
    float B=normalizeB(analogRead(2)); //Blue LDR reading pin
 
-   Serial.println(R);
+   Serial.print("The normalized values: ");
+   Serial.print(R);
    Serial.print(", ");
-   Serial.println(G);
+   Serial.print(G);
    Serial.print(", ");
    Serial.println(B);
  
@@ -122,19 +123,22 @@ delay(5000);
    //Tell me if u cannot
  }
  
+
+
  int whatColor(float R,float G,float B){
    
    int colorNearestNeighbour=whatColor_NearestNeighbour(R,G,B);
    int colorDecisionTree=whatColor_DecisionTree(R,G,B);
- 
+   int colorPCA=whatColor_PCA(R,G,B);
    
    Serial.print("Nearest Neighbour=");
    Serial.println(colorNearestNeighbour);
    Serial.print(" DecisionTree=");
-   Serial.println(colorDecisionTree);
+   Serial.print(colorDecisionTree);
+   Serial.print(" PCA Algo=");
+   Serial.println(colorPCA);
    
-   if(colorNearestNeighbour==colorDecisionTree) return colorDecisionTree;
-   else return 6;
+   return colorDecisionTree; //********************
  }
  
 
