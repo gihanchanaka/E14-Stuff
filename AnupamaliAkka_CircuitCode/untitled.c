@@ -7,11 +7,16 @@ float inverse[25][25];
 int main(){
 
 
+/*
+	float R[NumberOfLoops][NumberOfLoops]=THIS IS THE RESISTANCE MATRIX;
+	float VolatgeDrops[NumberOfLoops]=THIS IS THE VOLTAGE DROP OF A MESH;
+	m(R,NumberOfLoops); THIS CALCULATES THE INVERSE OF R
 
-	G=;
-	VolatgeDrops;
-	m(G,NL);
+  I=inverse*VolatgeDrops;
+  I (loop current) is the answer you need
+*/
 
+  //If you are not anupamali, ask anupamali how to calculate R,VolatgeDrops
 
 }
 
