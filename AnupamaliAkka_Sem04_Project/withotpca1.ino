@@ -134,7 +134,7 @@ delay(5000);
    Serial.print("Nearest Neighbour=");
    Serial.println(colorToString(colorNearestNeighbour));
    Serial.print(" DecisionTree=");
-   Serial.print(colorToString(colorDecisionTree));
+   Serial.println(colorToString(colorDecisionTree));
    Serial.print(" PCA Algo=");
    Serial.println(colorToString(colorPCA));
    
