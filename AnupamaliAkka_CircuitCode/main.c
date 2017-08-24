@@ -14,47 +14,51 @@ int main()
 {
     int NL;
     int NE;
-    int loop[NL];
-    char branch[NE];
-    char type[NE];
-    float value[NE];
     char answer;
-    int i;
-    int presance[NE][NL];
-    float voltagedrops[NL];
-    float resistor[NL][NL];
-     float I[NL];
 
     printf("Do you want to continue:   ");
     scanf("%s",&answer);
     printf("Enter the number of loop:    ");
     scanf("%d",&NL);
-     printf("enter the number of elements:  ");
+    printf("enter the number of elements:  ");
     scanf("%d",&NE);
+    
+
+
+    int loop[NL];
+    char branch[NE];
+    char type[NE];
+    float value[NE];
+    int i;
+    int presance[NE][NL];
+    float voltagedrops[NL];
+    float resistor[NL][NL];
+    float I[NL];
+    
 i=0;
 while (answer=='y')
 {
     for (i=0 ; i<NL ; i++ ){
       int loopnumber;
-      char branch[1];
-      char type[1];
+      char branch;
+      char thisElementType;
       float valueread;
 
 
       printf("enter the loop number: ");
       scanf("%d",&loopnumber);
       printf("enter the  branch: ");
-      scanf("%s",&branch);
+      scanf("%c",&branch);
       printf("resistor or voltage: ");
-      scanf("%s",&type);
+      scanf("%c",&thisElementType);
       printf("enter value: ");
-      scanf("%lf",&valueread);
+      scanf("%f",&valueread);
 
 
       loopnumber--;
-      int branchnumber=branch-'A';
+      int branchnumber=(int)branch-'A';
       value[branchnumber]=valueread;
-      type[branchnumber]=type;
+      type[branchnumber]=thisElementType;
       presance[branchnumber][loopnumber]=1;
       i++;
       printf("Do you want to continue");
@@ -99,11 +103,12 @@ for (x=0;x<NL;x++){
     I[x]=sum;
     printf("the current is %lf  ",I[x]);
 }
+}
 
 
 
 
-int m(float resistor[NL][NL],int NL)
+int m(float resistor[25][25],int NL)
 {
   int d = determinant(resistor, NL);
   if (d == 0)
@@ -211,6 +216,6 @@ void transpose(float num[25][25], float fac[25][25], float r)
         }
     }
 
-}
-    return 0;
+
+  //  return 0;
 }
