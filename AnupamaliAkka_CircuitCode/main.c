@@ -114,7 +114,7 @@ while (answer=='y')
          }
 
  for(x=0;x<NL;x++){
-  printf("VoltageDrop %d =%fV\n", x,voltagedrops[x]);
+  printf("VoltageDrop %d = %f\n", x,voltagedrops[x]);
  }        
 
  printf("\nThe resistor matrix\n");
@@ -125,14 +125,18 @@ while (answer=='y')
   printf("\n");
  }
 
- m(resistor,NL);
+ float arToPassToLecturersFunctions[25][25];
+ for(x=0;x<25;x++)for(y=0;y<25;y++)arToPassToLecturersFunctions[x][y]=0;
+ for(x=0;x<NL;x++)for(y=0;y<NL;y++)arToPassToLecturersFunctions[x][y]=resistor[x][y]; 
+
+ m(arToPassToLecturersFunctions,NL);
  printf("\nThe inverse matrix\n");
  for(x=0;x<NL;x++){
   for(y=0;y<NL;y++){
     printf("%f ", inverse[x][y]);
   }
   printf("\n");
- 
+ }
 
 
 for (x=0;x<NL;x++){
@@ -143,9 +147,9 @@ for (x=0;x<NL;x++){
     I[x]=sum;
     printf("the current is %lf  ",I[x]);
   }
-  }
-return 0;
+return 0;  
 }
+
 
 
 
