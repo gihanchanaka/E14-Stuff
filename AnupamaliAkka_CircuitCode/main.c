@@ -53,7 +53,6 @@ int main()
     for(x=0;x<NL;x++)I[NL]=0;
 
 
-    //Do the ZERO initialization of all these arrays! There is a hell lot of garbage here
     
 i=0;
 while (answer=='y')
