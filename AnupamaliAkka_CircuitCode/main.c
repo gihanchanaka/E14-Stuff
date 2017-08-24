@@ -2,6 +2,14 @@
 #include <stdlib.h>
 #include <math.h>
 float inverse[25][25];
+
+
+int m(float resistor[][25],int NL);
+float determinant(float [][25], float);
+void cofactor(float [][25], float);
+void transpose(float [][25], float [][25], float);
+
+
 int main()
 {
     int NL;
@@ -85,35 +93,23 @@ while (answer=='y')
 
 for (x=0;x<NL;x++){
      float sum=0;
-    for(y=;y<NL;y++){
+    for(y=0;y<NL;y++){
         sum+=inverse[x][y]*voltagedrops[y];
     }
     I[x]=sum;
     printf("the current is %lf  ",I[x]);
 }
-int m(G,NL){
 
 
 
-	G=resistor[NL][NL];
-	VolatgeDrops[NL];
-
-
-}
-
-
-
-float determinant(float [][25], float);
-void cofactor(float [][25], float);
-void transpose(float [][25], float [][25], float);
 
 int m(float resistor[NL][NL],int NL)
 {
-  d = determinant(G, NL);
+  int d = determinant(resistor, NL);
   if (d == 0)
    printf("\nInverse of Entered Matrix is not possible\n");
   else
-   cofactor(G, NL);
+   cofactor(resistor, NL);
 
   return 0;
 
