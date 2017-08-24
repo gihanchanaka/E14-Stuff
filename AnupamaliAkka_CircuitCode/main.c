@@ -17,7 +17,7 @@ int main()
     char answer;
 
     printf("Do you want to continue:   ");
-    scanf("%s",&answer);
+    scanf("%c",&answer);
     printf("Enter the number of loop:    ");
     scanf("%d",&NL);
     printf("enter the number of elements:  ");
@@ -62,12 +62,12 @@ while (answer=='y')
       presance[branchnumber][loopnumber]=1;
       i++;
       printf("Do you want to continue");
-      scanf("%s",&answer);
+      scanf("%c",&answer);
     }
 }
      int x,y,z;
          for ( x=0;x<NE ;x++){
-                if (type[x]=='v'){
+                if (type[x]=='V'){
                         for( y=0 ; y<NL ;y++){
                                 if(presance[x][y]==1){
                                         voltagedrops[y]+=value[x];
@@ -92,6 +92,10 @@ while (answer=='y')
                 }
             }
          }
+
+ for(x=0;x<NL;x++){
+  printf("VoltageDrop %d =%fV\n", x,voltagedrops[x]);
+ }        
 
 
 
