@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <ctype.h>
 float inverse[25][25];
 
 
@@ -34,25 +35,27 @@ int main()
     float voltagedrops[NL];
     float resistor[NL][NL];
     float I[NL];
+
+    //Do the ZERO initialization of all these arrays! There is a hell lot of garbage here
     
 i=0;
 while (answer=='y')
 {
-    for (i=0 ; i<NL ; i++ ){
+    for (i=0 ; i<NE ; i++ ){
       int loopnumber;
       char branch;
       char thisElementType;
       float valueread;
-
+      char temp[2];
 
       printf("enter the loop number: ");
       scanf("%d",&loopnumber);
-      printf("enter the  branch: ");
-      scanf("%c",&branch);
+      printf("enter the  Element Name (Known as branch to Anupamali): ");
+      scanf("\n%c",&branch);          // \n is added to supress some bug in the input
       printf("resistor or voltage: ");
-      scanf("%c",&thisElementType);
+      scanf("\n%c",&thisElementType); // \n is added to supress some bug in the input
       printf("enter value: ");
-      scanf("%f",&valueread);
+      scanf("\n%f",&valueread); // \n is added to supress some bug in the input
 
 
       loopnumber--;
@@ -62,7 +65,7 @@ while (answer=='y')
       presance[branchnumber][loopnumber]=1;
       i++;
       printf("Do you want to continue");
-      scanf("%c",&answer);
+      scanf("\n%c",&answer); // \n is added to supress some bug in the input
     }
 }
      int x,y,z;
@@ -97,6 +100,22 @@ while (answer=='y')
   printf("VoltageDrop %d =%fV\n", x,voltagedrops[x]);
  }        
 
+ printf("\nThe resistor matrix\n");
+ for(x=0;x<NL;x++){
+  for(y=0;y<NL;y++){
+    printf("%f ", resistor[x][y]);
+  }
+  printf("\n");
+ }
+
+ m(resistor,NL);
+ printf("\nThe inverse matrix\n");
+ for(x=0;x<NL;x++){
+  for(y=0;y<NL;y++){
+    printf("%f ", inverse[x][y]);
+  }
+  printf("\n");
+ 
 
 
 for (x=0;x<NL;x++){
@@ -108,13 +127,14 @@ for (x=0;x<NL;x++){
     printf("the current is %lf  ",I[x]);
 }
 }
+}
 
 
 
 
 int m(float resistor[25][25],int NL)
 {
-  int d = determinant(resistor, NL);
+  int d = determinant(resistor, NL+0.01);
   if (d == 0)
    printf("\nInverse of Entered Matrix is not possible\n");
   else
@@ -222,4 +242,4 @@ void transpose(float num[25][25], float fac[25][25], float r)
 
 
   //  return 0;
-}
+  }
