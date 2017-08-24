@@ -30,11 +30,28 @@ int main()
     char branch[NE];
     char type[NE];
     float value[NE];
-    int i;
+    int i,x,y,z;
     int presance[NE][NL];
     float voltagedrops[NL];
     float resistor[NL][NL];
     float I[NL];
+
+    for(x=0;x<NL;x++)loop[x]=0;
+    for(x=0;x<NE;x++)branch[x]=0;
+    for(x=0;x<NE;x++) type[x]=0;
+    for(x=0;x<NE;x++)value[x]=0;
+    for(x=0;x<NE;x++){
+      for(y=0;y<NL;y++){
+        presance[x][y]=0;
+      }
+    }
+    for(x=0;x<NL;x++){
+      for(y=0;y<NL;y++){
+        resistor[x][y]=0;
+      }
+    }
+    for(x=0;x<NL;x++)I[NL]=0;
+
 
     //Do the ZERO initialization of all these arrays! There is a hell lot of garbage here
     
@@ -68,7 +85,7 @@ while (answer=='y')
       scanf("\n%c",&answer); // \n is added to supress some bug in the input
     }
 }
-     int x,y,z;
+     
          for ( x=0;x<NE ;x++){
                 if (type[x]=='V'){
                         for( y=0 ; y<NL ;y++){
@@ -125,8 +142,9 @@ for (x=0;x<NL;x++){
     }
     I[x]=sum;
     printf("the current is %lf  ",I[x]);
-}
-}
+  }
+  }
+return 0;
 }
 
 
@@ -134,7 +152,7 @@ for (x=0;x<NL;x++){
 
 int m(float resistor[25][25],int NL)
 {
-  int d = determinant(resistor, NL+0.01);
+  int d = determinant(resistor, NL);
   if (d == 0)
    printf("\nInverse of Entered Matrix is not possible\n");
   else
