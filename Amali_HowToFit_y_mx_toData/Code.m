@@ -21,8 +21,10 @@ leastError
 plot(linspace(0,max(X)),linspace(0,max(X))*mBest,'b- ');
 hold on;
 plot(X,Y,'r *');
+title(['y = ',num2str(mBest),'x'])
 
 figure
 plot(linspace(min(X),max(X)),linspace(min(X),max(X))*mBest,'b- ');
 hold on;
 plot(X,Y,'r *');
+title(['y = ',num2str(mBest),'x'])
