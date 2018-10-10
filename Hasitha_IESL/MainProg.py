@@ -1,5 +1,5 @@
 '''
-Update 10-10-2018 20:33
+Update 10-10-2018 20:41
 '''
 
 import cv2
@@ -9,6 +9,8 @@ import numpy as np
 TURNING_PARAM=-0 #Tune this parameter to decide when to turn
 FORWARD_PARAM=5 #Tune this parameter for the tolerance in mis-alignment
 
+
+WHITE_PARAM=0.5 #What intensity qualifies as white?
 FULL_BLACK_PARAM=0.05 #When to go back
 COMPLICATED_PARAM=0.8 #When to start looking for arrows
 
@@ -82,7 +84,7 @@ if __name__== "__main__":
 
             cogFrame[:,int(dir+W/2)]=1
 
-            whiteSum=np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>125.0)
+            whiteSum=np.sum(np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>int(255*WHITE_PARAM)))
 
             print("White ratio= ",whiteSum/(1.0*H*W))
             if whiteSum<FULL_BLACK_PARAM*H*W or whiteSum>COMPLICATED_PARAM*H*W:
