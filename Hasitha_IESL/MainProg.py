@@ -1,5 +1,5 @@
 '''
-Update 10-10-2018 20:22
+Update 10-10-2018 20:26
 '''
 
 import cv2
@@ -84,7 +84,7 @@ if __name__== "__main__":
 
             whiteSum=np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>125.0)
 
-            print(whiteSum,H*W)
+            print("White ratio= ",whiteSum/H*W)
             if whiteSum<FULL_BLACK_PARAM*H*W or whiteSum>COMPLICATED_PARAM*H*W:
                 if whiteSum<FULL_BLACK_PARAM*H*W:
                     if PREV_STEP=="FORWARD":
