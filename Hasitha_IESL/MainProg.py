@@ -1,5 +1,5 @@
 '''
-Update 10-10-2018 20:41
+Update 10-10-2018 20:52
 '''
 
 import cv2
@@ -85,10 +85,10 @@ if __name__== "__main__":
             cogFrame[:,int(dir+W/2)]=1
 
             whiteSum=np.sum(np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>int(255*WHITE_PARAM)))
-
-            print("White ratio= ",whiteSum/(1.0*H*W))
-            if whiteSum<FULL_BLACK_PARAM*H*W or whiteSum>COMPLICATED_PARAM*H*W:
-                if whiteSum<FULL_BLACK_PARAM*H*W:
+            whiteRatio=whiteSum/(H*W*1.0)
+            print("White ratio= ",whiteRatio)
+            if whiteRatio<FULL_BLACK_PARAM or whiteSum>COMPLICATED_PARAM:
+                if whiteRatio<FULL_BLACK_PARAM:
                     if PREV_STEP=="FORWARD":
                         print("BACKWARD")
                     elif PREV_STEP=="RIGHT-Forward":
@@ -98,10 +98,10 @@ if __name__== "__main__":
                     else:
                         print("FORWARD")
 
-                elif whiteSum>COMPLICATED_PARAM*H*W:
+                elif whiteRatio>COMPLICATED_PARAM:
                     print("Start looking for arrows")
 
-                cv2.imshow("otsu",gray)
+                cv2.imshow("Frame",gray)
                 cv2.waitKey(10)
 
             else:
@@ -116,7 +116,7 @@ if __name__== "__main__":
                         PREV_STEP="LEFT-Forward"
                         print(dir,"LEFT-Forward")
 
-                cv2.imshow('otsu',fr)
+                cv2.imshow('Frame',fr)
                 cv2.waitKey(10)
 
                 cv2.imshow('cog',cogFrame)
