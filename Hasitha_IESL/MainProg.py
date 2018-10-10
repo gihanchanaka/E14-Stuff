@@ -1,18 +1,18 @@
 import cv2
 import numpy as np
-import RPi.GPIO as GPIO
+#import RPi.GPIO as GPIO
 
 TURNING_PARAM=-0.1
 FORWARD_PARAM=20
 
-TOP_OFFSET=100
-FRAME_HEIGHT=600-100
-LEFT_OFFSET=250
-FRAME_WIDTH=900-250
+TOP_OFFSET=10
+FRAME_HEIGHT=200
+LEFT_OFFSET=25
+FRAME_WIDTH=200
 
-cap=cv2.VideoCapture(1)
-cap.set(3, 640)
-cap.set(4, 480)
+cap=cv2.VideoCapture(0)
+'''cap.set(3, 640)
+cap.set(4, 480)'''
 
 if __name__== "__main__":
     STATE="BEGIN"
@@ -42,6 +42,7 @@ if __name__== "__main__":
             blur=cv2.GaussianBlur(gray,(5,5),0)
             ret,th1 = cv2.threshold(blur,35,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
             fr=th1[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]
+            print(th1.shape,TOP_OFFSET,H+TOP_OFFSET,LEFT_OFFSET,W+LEFT_OFFSET,fr.shape)
             cogFrame=np.zeros(fr.shape)
 
 
