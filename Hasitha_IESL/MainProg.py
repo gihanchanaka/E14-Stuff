@@ -1,5 +1,5 @@
 '''
-Update 10-10-2018 19:35
+Update 10-10-2018 20:22
 '''
 
 import cv2
@@ -85,17 +85,23 @@ if __name__== "__main__":
             whiteSum=np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>125.0)
 
             print(whiteSum,H*W)
-            if whiteSum<FULL_BLACK_PARAM*H*W:
-                if PREV_STEP=="FORWARD":
-                    print("BACKWARD")
-                elif PREV_STEP=="RIGHT-Forward":
-                    print("LEFT-Backward")
-                elif PREV_STEP=="LEFT-Forward":
-                    print("RIGHT-Backward")
-                else:
-                    print("FORWARD")
-            elif whiteSum>COMPLICATED_PARAM*H*W:
-                print("Start looking for arrows")
+            if whiteSum<FULL_BLACK_PARAM*H*W or whiteSum>COMPLICATED_PARAM*H*W:
+                if whiteSum<FULL_BLACK_PARAM*H*W:
+                    if PREV_STEP=="FORWARD":
+                        print("BACKWARD")
+                    elif PREV_STEP=="RIGHT-Forward":
+                        print("LEFT-Backward")
+                    elif PREV_STEP=="LEFT-Forward":
+                        print("RIGHT-Backward")
+                    else:
+                        print("FORWARD")
+
+                elif whiteSum>COMPLICATED_PARAM*H*W:
+                    print("Start looking for arrows")
+
+                cv2.imshow("otsu",gray)
+                cv2.waitKey(10)
+
             else:
                 if(np.abs(dir)<FORWARD_PARAM):
                     PREV_STEP="FORWARD"
