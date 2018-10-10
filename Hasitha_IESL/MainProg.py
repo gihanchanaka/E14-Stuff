@@ -1,5 +1,5 @@
 '''
-Last update 10-10-2018 18:08
+Last update 10-10-2018 18:30
 '''
 import cv2
 import numpy as np
@@ -81,7 +81,7 @@ if __name__== "__main__":
             if(np.abs(dir)<FORWARD_PARAM):
                 print(dir,"FORWARD")
             else:
-                if(dir<0):
+                if(dir>0):
                     print(dir,"RIGHT-Forward")
                 else:
                     print(dir,"LEFT-Forward")
