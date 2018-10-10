@@ -1,3 +1,6 @@
+'''
+Last update 10-10-2018 18:08
+'''
 import cv2
 import numpy as np
 #import RPi.GPIO as GPIO
@@ -42,7 +45,7 @@ if __name__== "__main__":
             blur=cv2.GaussianBlur(gray,(5,5),0)
             ret,th1 = cv2.threshold(blur,35,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
             fr=th1[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]
-            print(th1.shape,TOP_OFFSET,H+TOP_OFFSET,LEFT_OFFSET,W+LEFT_OFFSET,fr.shape)
+            #print(th1.shape,TOP_OFFSET,H+TOP_OFFSET,LEFT_OFFSET,W+LEFT_OFFSET,fr.shape)
             cogFrame=np.zeros(fr.shape)
 
 
