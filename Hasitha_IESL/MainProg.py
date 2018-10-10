@@ -1,5 +1,5 @@
 '''
-Update 10-10-2018 20:52
+Update 10-10-2018 21:01
 '''
 
 import cv2
@@ -56,38 +56,18 @@ if __name__== "__main__":
             #print(th1.shape,TOP_OFFSET,H+TOP_OFFSET,LEFT_OFFSET,W+LEFT_OFFSET,fr.shape)
             cogFrame=np.zeros(fr.shape)
 
-
-            for y in range(H):
-                M[y]=0
-                COG[y]=0
-
-                #print(COG[y],M[y])
-
-
-                M[y]=np.sum(fr[y,:])
-                COG[y]=np.dot(fr[y,:],np.arange(0,W))
+            whiteSum = np.sum(
+                np.sum(gray[TOP_OFFSET:H + TOP_OFFSET, LEFT_OFFSET:W + LEFT_OFFSET] > int(255 * WHITE_PARAM)))
+            whiteRatio = whiteSum / (H * W * 1.0)
 
 
 
-                if M[y]>0:
-                        COG[y]=COG[y]/M[y]
-                else:
-                    COG[y]=W/2
-
-                cogFrame[y,COG[y]]=1
 
 
 
-            COG2=COG-W/2
-            np.flip(COG2,0)
-            dir=np.dot(COG2,np.exp(TURNING_PARAM*np.arange(H,0,-1)))/np.sum(np.exp(TURNING_PARAM*np.arange(H,0,-1)))
 
-            cogFrame[:,int(dir+W/2)]=1
-
-            whiteSum=np.sum(np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>int(255*WHITE_PARAM)))
-            whiteRatio=whiteSum/(H*W*1.0)
             print("White ratio= ",whiteRatio)
-            if whiteRatio<FULL_BLACK_PARAM or whiteSum>COMPLICATED_PARAM:
+            if whiteRatio<FULL_BLACK_PARAM or whiteRatio>COMPLICATED_PARAM:
                 if whiteRatio<FULL_BLACK_PARAM:
                     if PREV_STEP=="FORWARD":
                         print("BACKWARD")
@@ -105,6 +85,29 @@ if __name__== "__main__":
                 cv2.waitKey(10)
 
             else:
+
+                for y in range(H):
+                    M[y] = 0
+                    COG[y] = 0
+
+                    # print(COG[y],M[y])
+
+                    M[y] = np.sum(fr[y, :])
+                    COG[y] = np.dot(fr[y, :], np.arange(0, W))
+
+                    if M[y] > 0:
+                        COG[y] = COG[y] / M[y]
+                    else:
+                        COG[y] = W / 2
+
+                    cogFrame[y, COG[y]] = 1
+                COG2 = COG - W / 2
+                np.flip(COG2, 0)
+                dir = np.dot(COG2, np.exp(TURNING_PARAM * np.arange(H, 0, -1))) / np.sum(
+                    np.exp(TURNING_PARAM * np.arange(H, 0, -1)))
+
+                cogFrame[:, int(dir + W / 2)] = 1
+
                 if(np.abs(dir)<FORWARD_PARAM):
                     PREV_STEP="FORWARD"
                     print(dir,"FORWARD")
