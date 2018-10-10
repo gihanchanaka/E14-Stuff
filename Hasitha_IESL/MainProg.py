@@ -1,17 +1,22 @@
 '''
-Last update 10-10-2018 18:30
+Update 10-10-2018 19:35
 '''
+
 import cv2
 import numpy as np
 #import RPi.GPIO as GPIO
 
-TURNING_PARAM=-0.1
-FORWARD_PARAM=20
+TURNING_PARAM=-0 #Tune this parameter to decide when to turn
+FORWARD_PARAM=5 #Tune this parameter for the tolerance in mis-alignment
 
-TOP_OFFSET=10
-FRAME_HEIGHT=200
-LEFT_OFFSET=25
-FRAME_WIDTH=200
+FULL_BLACK_PARAM=0.05 #When to go back
+COMPLICATED_PARAM=0.8 #When to start looking for arrows
+
+
+TOP_OFFSET=10 #Window size param
+FRAME_HEIGHT=400 #Window size param
+LEFT_OFFSET=25 #Window size param
+FRAME_WIDTH=500 #Window size param
 
 cap=cv2.VideoCapture(0)
 '''cap.set(3, 640)
@@ -19,6 +24,7 @@ cap.set(4, 480)'''
 
 if __name__== "__main__":
     STATE="BEGIN"
+    PREV_STEP=""
     while True:
         if STATE=="BEGIN":
             H=FRAME_HEIGHT
@@ -76,21 +82,37 @@ if __name__== "__main__":
 
             cogFrame[:,int(dir+W/2)]=1
 
+            whiteSum=np.sum(gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]>125.0)
 
-
-            if(np.abs(dir)<FORWARD_PARAM):
-                print(dir,"FORWARD")
-            else:
-                if(dir>0):
-                    print(dir,"RIGHT-Forward")
+            print(whiteSum,H*W)
+            if whiteSum<FULL_BLACK_PARAM*H*W:
+                if PREV_STEP=="FORWARD":
+                    print("BACKWARD")
+                elif PREV_STEP=="RIGHT-Forward":
+                    print("LEFT-Backward")
+                elif PREV_STEP=="LEFT-Forward":
+                    print("RIGHT-Backward")
                 else:
-                    print(dir,"LEFT-Forward")
+                    print("FORWARD")
+            elif whiteSum>COMPLICATED_PARAM*H*W:
+                print("Start looking for arrows")
+            else:
+                if(np.abs(dir)<FORWARD_PARAM):
+                    PREV_STEP="FORWARD"
+                    print(dir,"FORWARD")
+                else:
+                    if(dir>0):
+                        PREV_STEP="RIGHT-Forward"
+                        print(dir,"RIGHT-Forward")
+                    else:
+                        PREV_STEP="LEFT-Forward"
+                        print(dir,"LEFT-Forward")
 
-            cv2.imshow('otsu',fr)
-            cv2.waitKey(10)
+                cv2.imshow('otsu',fr)
+                cv2.waitKey(10)
 
-            cv2.imshow('cog',cogFrame)
-            cv2.waitKey(10)
+                cv2.imshow('cog',cogFrame)
+                cv2.waitKey(10)
 
 
 
