@@ -1,5 +1,5 @@
 '''
-Update 12-10-2018 16:37
+Update 10-10-2018 21:01
 '''
 
 import cv2
@@ -44,6 +44,7 @@ cap.set(4, 480)'''
 
 
 def turnRight():
+    print("Turning right")
     RIGHT_TURN_LeftMotor_DUTY_CYCLE=10
     RIGHT_TURN_RightMotor_DUTY_CYCLE=20
     left_pwm_drive.ChangeDutyCycle(RIGHT_TURN_LeftMotor_DUTY_CYCLE)
@@ -55,6 +56,7 @@ def turnRight():
     GPIO.output(right_minus, False)
 
 def turnLeft():
+    print("Turning left")
     LEFT_TURN_LeftMotor_DUTY_CYCLE=10
     LEFT_TURN_RightMotor_DUTY_CYCLE=20
     left_pwm_drive.ChangeDutyCycle(LEFT_TURN_LeftMotor_DUTY_CYCLE)
@@ -66,6 +68,7 @@ def turnLeft():
     GPIO.output(right_minus, False)
 
 def goForward():
+    print("Going forward")
     GO_FORWARD_LeftMotor_DUTY_CYCLE=10
     GO_FORWARD_RightMotor_DUTY_CYCLE=20
     left_pwm_drive.ChangeDutyCycle(GO_FORWARD_LeftMotor_DUTY_CYCLE)
@@ -77,6 +80,7 @@ def goForward():
     GPIO.output(right_minus, False)
 
 def goBACK():
+    print("Going back")
     GO_BACK_LeftMotor_DUTY_CYCLE=10
     GO_BACK_RightMotor_DUTY_CYCLE=20
     left_pwm_drive.ChangeDutyCycle(GO_BACK_LeftMotor_DUTY_CYCLE)
@@ -89,6 +93,7 @@ def goBACK():
 
 
 def stopMotors():
+    print("Stopping motors")
     left_pwm_drive.ChangeDutyCycle(0)
     right_pwm_drive.ChangeDutyCycle(0)
 
@@ -165,13 +170,13 @@ if __name__== "__main__":
             if whiteRatio<FULL_BLACK_PARAM or whiteRatio>COMPLICATED_PARAM:
                 if whiteRatio<FULL_BLACK_PARAM:
                     if PREV_STEP=="FORWARD":
-                        print("BACKWARD")
+                        goBACK()
                     elif PREV_STEP=="RIGHT-Forward":
-                        print("LEFT-Backward")
+                        goBACK()
                     elif PREV_STEP=="LEFT-Forward":
-                        print("RIGHT-Backward")
+                        goBACK()
                     else:
-                        print("FORWARD")
+                        goForward()
 
                 elif whiteRatio>COMPLICATED_PARAM:
                     print("Start looking for arrows")
@@ -205,14 +210,14 @@ if __name__== "__main__":
 
                 if(np.abs(dir)<FORWARD_PARAM):
                     PREV_STEP="FORWARD"
-                    print(dir,"FORWARD")
+                    goForward()
                 else:
                     if(dir>0):
                         PREV_STEP="RIGHT-Forward"
-                        print(dir,"RIGHT-Forward")
+                        turnRight()
                     else:
                         PREV_STEP="LEFT-Forward"
-                        print(dir,"LEFT-Forward")
+                        turnLeft()
 
                 cv2.imshow('Frame',fr)
                 cv2.waitKey(10)
