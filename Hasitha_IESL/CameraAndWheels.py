@@ -181,7 +181,7 @@ if __name__== "__main__":
                 elif whiteRatio>COMPLICATED_PARAM:
                     print("Start looking for arrows")
 
-                cv2.imshow("Frame",gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET])
+                cv2.imshow('Frame',gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET])
                 cv2.waitKey(10)
 
             else:
