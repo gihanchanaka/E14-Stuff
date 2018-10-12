@@ -38,7 +38,7 @@ if __name__== "__main__":
             blur=cv2.GaussianBlur(gray,(5,5),0)
             ret,th1 = cv2.threshold(blur,35,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
             fr=th1[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET]
-            cv2.imshow('otsu',th1)
+            cv2.imshow('Frame',th1)
             cv2.waitKey(10)
             COG=np.zeros(shape=(H),dtype=np.int)
             M=np.zeros(shape=(H),dtype=np.int)
@@ -81,7 +81,7 @@ if __name__== "__main__":
                 elif whiteRatio>COMPLICATED_PARAM:
                     print("Start looking for arrows")
 
-                cv2.imshow("Frame",gray)
+                cv2.imshow("Frame",gray[TOP_OFFSET:H+TOP_OFFSET,LEFT_OFFSET:W+LEFT_OFFSET])
                 cv2.waitKey(10)
 
             else:
